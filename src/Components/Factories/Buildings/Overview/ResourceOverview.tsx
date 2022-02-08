@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {ResourceOverviewProps} from "../../../@types/Components/Factories/Buildings/ResourcceOverviewProps";
+import {ResourceOverviewProps} from "../../../../@types/Components/Factories/Buildings/ResourcceOverviewProps";
 
 /**
  * Component providing overview of products.
@@ -28,12 +28,12 @@ export class ResourceOverview extends Component<ResourceOverviewProps> {
 		if(!this.props.has) return (<div/>);
 
 		return (
-			<div className="col-6">
+			<div className="col">
 				<table className="table table-borderless">
 					<thead>
 					<tr>
 						<th colSpan={2} className="text-center">
-							{this.props.title}
+							{this.props.children}
 						</th>
 					</tr>
 					</thead>

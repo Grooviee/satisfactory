@@ -84,6 +84,10 @@ export class BuildingData {
 		return DataList.getBuilding(this.type).type;
 	}
 
+	getBuildingName(): string {
+		return DataList.getBuilding(this.type).name;
+	}
+
 	setBuilding(value: string): void {
 		this.type = value;
 		let buildingType = DataList.getBuilding(value);

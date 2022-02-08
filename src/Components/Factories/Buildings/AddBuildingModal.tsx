@@ -54,7 +54,7 @@ export class AddBuildingModal extends Component<AddBuildingModalProps, AddBuildi
 		building.setBuilding(value);
 
 		this.props.factory.updateBuilding(building);
-		this.props.onUpdate();
+		this.props.onUpdate(building);
 	}
 
 	private static setBuildingTemplate(state: DataState): TemplateResult {
@@ -83,7 +83,6 @@ export class AddBuildingModal extends Component<AddBuildingModalProps, AddBuildi
 						</div>
 					</div>
 				</div>
-
 			);
 		}
 
@@ -115,8 +114,8 @@ export class AddBuildingModal extends Component<AddBuildingModalProps, AddBuildi
 	public render(): JSX.Element {
 		return (
 			<>
-				<button className="btn btn-sm btn-success mx-2" onClick={this.handleShow}>
-					<i className="fa fa-plus pe-2"/> Add building
+				<button className="btn btn-success d-block w-100 mb-3" onClick={this.handleShow}>
+					<i className="fa fa-plus pe-2"/> {this.props.children}
 				</button>
 				<div className="modal" ref={this.modalRef}>
 					<div className="modal-dialog modal-fullscreen modal-dialog-centered">

@@ -1,4 +1,6 @@
+import {FactoryData} from "../../../../Structures/FactoryData";
+
 export type ResourceDataProps = {
-	factoryId: number;
+	factory: FactoryData;
 	renderCallback: (value: number) => boolean;
 }

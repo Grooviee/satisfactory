@@ -56,10 +56,35 @@ body {
 }
 
 .production-statistics {
-  overflow: auto;
   max-height: 392px;
 }
 
 .text-small {
   font-size: 90%;
+}
+
+.building-list {
+  max-height: 418px;
+}
+.scrollable {
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #484848 transparent;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 10px
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background-color: #484848;
+  border-radius: 20px;
+}
+
+.factory-editor {
+  min-height: 500px;
 }

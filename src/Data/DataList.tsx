@@ -5,6 +5,7 @@ import {RecipeList} from "../@types/Data/Recipes/RecipeList";
 import {Recipe} from "../@types/Data/Recipes/Recipe";
 import {BuildingList} from "../@types/Data/BuildingList";
 import {BuildingDef} from "../@types/Data/BuildingDef";
+import {Resources} from "../@types/Data/Recipes/Resources";
 
 export class Data {
 	public buildings: BuildingList;
@@ -70,8 +71,12 @@ export class Data {
 	}
 
 	getRecipeIcon(name: string, size: number = 24, paddingClass: string = "pe-2"): JSX.Element {
-		let img = "img/" + DataList.getRecipeIconName(name) + ".png";
-		return (<img src={img} alt={name} height={size} className={paddingClass}/>);
+		try {
+			let img = "img/" + DataList.getRecipeIconName(name) + ".png";
+			return (<img src={img} alt={name} height={size} className={paddingClass}/>);
+		} catch (e) {
+			return <></>;
+		}
 	}
 
 	getBuildingIcon(name: string, size: number = 24, paddingClass: string = "pe-2"): JSX.Element {
@@ -92,6 +97,38 @@ export class Data {
 		});
 
 		return sortable;
+	}
+
+	sortRecipes(recipes: { [namedIndex: string]: Recipe }): { index: string, recipe: Recipe }[] {
+		let sortable = [];
+		for (let index in recipes) {
+			if (recipes.hasOwnProperty(index)) {
+				sortable.push({index: index, recipe: recipes[index]});
+			}
+		}
+
+		sortable.sort((a, b): number => {
+			return a.recipe.name < b.recipe.name ? -1 : a.recipe.name > b.recipe.name ? 1 : 0;
+		});
+
+		return sortable;
+	}
+
+	getRecipeResources(resources: Resources | undefined, textColor: string): JSX.Element[] {
+		let resourceArray: JSX.Element[] = [];
+		if(typeof resources === "undefined") return resourceArray;
+
+		let className = "d-block " + textColor;
+		for(const [index, number] of Object.entries(resources)) {
+			resourceArray.push(
+				<div className={className}>
+					{this.getRecipeIcon(index)}
+					{number} / min
+				</div>
+			);
+		}
+
+		return resourceArray;
 	}
 }
 

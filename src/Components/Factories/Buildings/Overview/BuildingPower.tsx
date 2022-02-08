@@ -1,6 +1,6 @@
 import {Component} from "react";
-import {BuildingPowerProps} from "../../../@types/Components/Factories/Buildings/BuildingPowerProps";
-import {numberFormat} from "../../../Helpers/NumberFormat";
+import {BuildingPowerProps} from "../../../../@types/Components/Factories/Buildings/BuildingPowerProps";
+import {numberFormat} from "../../../../Helpers/NumberFormat";
 
 /**
  * Component showing if building is consuming or generating power and how much.

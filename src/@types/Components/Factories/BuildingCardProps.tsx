@@ -4,5 +4,6 @@ import {BuildingData} from "../../../Structures/BuildingData";
 export type BuildingCardProps = {
 	factory: FactoryData;
 	building: BuildingData;
-	onRemoveBuilding: any;
+	onRemoveBuilding: (building: BuildingData) => void;
+	onBuildingUpdate: (building: BuildingData) => void;
 }

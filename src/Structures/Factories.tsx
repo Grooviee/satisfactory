@@ -168,7 +168,7 @@ export class Factories {
 		let factory = this.getFactory(id);
 		if (factory === null) return productions;
 
-		factory.getResources().forEach((resource) => {
+		factory.getTotalResources().forEach((resource) => {
 			productions.push(resource);
 		});
 

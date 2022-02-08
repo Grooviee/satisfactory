@@ -1,8 +1,8 @@
 import {Component} from "react";
-import {FactoryList} from "../Components/Factories/FactoryList";
 import {ProductionStatistics} from "../Components/Statistics/ProductionStatistics";
 import {PowerStatistics} from "../Components/Statistics/PowerStatistics";
 import {Footer} from "../Common/Footer";
+import {FactoryManagement} from "../Components/Factories/FactoryManagement";
 
 /**
  * Component of factory manager.
@@ -19,7 +19,7 @@ export class Manager extends Component<any, any> {
 			<div className="container-fluid p-5 pt-3">
 				<div className="row">
 					<div className="col-md-8">
-						<FactoryList/>
+						<FactoryManagement/>
 					</div>
 					<div className="col-md-4">
 						<div className="sticky-top">

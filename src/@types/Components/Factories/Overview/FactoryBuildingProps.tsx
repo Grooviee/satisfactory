@@ -1,3 +1,5 @@
+import {FactoryData} from "../../../../Structures/FactoryData";
+
 export type FactoryBuildingsProps = {
-	factoryId: number;
+	factory: FactoryData;
 }

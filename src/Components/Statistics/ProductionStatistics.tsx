@@ -138,7 +138,7 @@ export class ProductionStatistics extends Component<any, any> {
 				<h5 className="card-header bg-dark border-dark">
 					Production Statistics
 				</h5>
-				<div className="production-statistics">
+				<div className="production-statistics scrollable">
 					<table className="table text-small border-dark">
 						<thead>
 						<tr>

@@ -103,7 +103,7 @@ export class FactoryData {
 		return counts;
 	}
 
-	getResources(): Resource[] {
+	getTotalResources(): Resource[] {
 		let resources: Resource[] = [];
 		let sorted = this.buildings.sort(BuildingData.BuildingSorter);
 
@@ -157,6 +157,14 @@ export class FactoryData {
 		})
 
 		return resources;
+	}
+
+	public static insufficientFilter(value: number) {
+		return value < 0;
+	}
+
+	public static productionFilter(value: number) {
+		return value > 0;
 	}
 
 	private findResource(array: Resource[], indexName: string): Resource | null {

@@ -1,6 +1,5 @@
 import {Component} from "react";
 import {DataList} from "../../../Data/DataList";
-import {FactoryManager} from "../../../Structures/Factories";
 import {FactoryBuildingsProps} from "../../../@types/Components/Factories/Overview/FactoryBuildingProps";
 
 /**
@@ -26,7 +25,7 @@ export class FactoryBuildings extends Component<FactoryBuildingsProps> {
 	}
 
 	private factoryBuildings(): JSX.Element {
-		let factory = FactoryManager.getFactory(this.props.factoryId);
+		let factory = this.props.factory;
 		if(factory == null) return <></>;
 
 		let buildings = factory.countBuildings();
@@ -50,7 +49,12 @@ export class FactoryBuildings extends Component<FactoryBuildingsProps> {
 		}
 
 		return (
-			<table className="table m-0 table-borderless">
+			<table className="table m-0 table-bordered">
+				<thead>
+				<tr>
+					<th>Buildings</th>
+				</tr>
+				</thead>
 				<tbody>
 				{list}
 				</tbody>

@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {FactoryManager} from "../Structures/Factories";
 import {TransportManager} from "../Structures/Transportation";
+import {SettingsManager} from "../Structures/Settings";
 
 /**
  * Button providing ability to import factory data.
@@ -25,6 +26,7 @@ export class Import extends Component<any, any> {
 			let json = JSON.parse(fileReader.result.toString());
 			FactoryManager.import(JSON.stringify(json.factories));
 			TransportManager.import(JSON.stringify(json.transportation));
+			SettingsManager.import(JSON.stringify(json.settings));
 
 			window.location.reload();
 		};

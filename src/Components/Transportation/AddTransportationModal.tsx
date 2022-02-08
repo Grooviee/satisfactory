@@ -142,7 +142,7 @@ export class AddTransportationModal extends Component<AddTransportationModalProp
 		}
 		return (
 			<>
-				<button className="btn btn-sm btn-success mx-2" onClick={this.handleShow}>
+				<button className="btn btn-sm btn-success me-3" onClick={this.handleShow}>
 					<i className="fa fa-long-arrow-alt-right pe-2"/> Add Export
 				</button>
 				<div className="modal" ref={this.modalRef}>

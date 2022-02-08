@@ -1,6 +1,5 @@
 import {Component} from "react";
 import {numberFormat} from "../../../Helpers/NumberFormat";
-import {FactoryManager} from "../../../Structures/Factories";
 import {EnergyOverviewProps} from "../../../@types/Components/Factories/Overview/EnergyOverviewProps";
 
 /**
@@ -26,45 +25,52 @@ export class EnergyOverview extends Component<EnergyOverviewProps, any> {
 	}
 
 	private factoryPowerGenerate(): JSX.Element {
-		let factory = FactoryManager.getFactory(this.props.factoryId);
-		if(factory == null) return <></>;
+		let factory = this.props.factory;
+		if (factory == null) return <></>;
 
 		let generate = factory.getPowerGenerate();
 		if (generate === 0) return <></>;
 
 		return (
-			<div className="py-2">
-				<span className="ps-3 text-success bold">
-						<i className="fa fa-bolt pe-2 fa-lg"/>
-						+ {numberFormat(generate)} MW
-					</span>
-			</div>
+			<tr>
+				<td className="text-success">
+					<i className="fa fa-bolt pe-2 fa-lg"/>
+					+ {numberFormat(generate)} MW
+				</td>
+			</tr>
 		)
 	}
 
 	private factoryPowerUsage(): JSX.Element {
-		let factory = FactoryManager.getFactory(this.props.factoryId);
-		if(factory == null) return <></>;
+		let factory = this.props.factory;
+		if (factory == null) return <></>;
 
 		let usage = factory.getPowerUsage();
 		if (usage === 0) return <></>;
 
 		return (
-			<div className="py-2">
-				<span className="ps-3 text-danger">
+			<tr>
+				<td className="text-danger">
 					<i className="fa fa-bolt pe-2 fa-lg"/>
 					- {numberFormat(usage)} MW
-				</span>
-			</div>
+				</td>
+			</tr>
 		)
 	}
 
 	render(): JSX.Element {
 		return (
-			<>
+			<table className="table m-0 table-bordered">
+				<thead>
+				<tr>
+					<th>Power</th>
+				</tr>
+				</thead>
+				<tbody>
 				{this.factoryPowerGenerate()}
 				{this.factoryPowerUsage()}
-			</>
+				</tbody>
+			</table>
 		)
 	}
 }

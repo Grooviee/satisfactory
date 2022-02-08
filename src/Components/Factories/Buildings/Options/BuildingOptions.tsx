@@ -1,19 +1,42 @@
 import {Component} from "react";
-import {RecipeSelect} from "./RecipeSelect";
 import {SourcePurity} from "./SourcePurity";
-import {BuildingDetailsProps} from "../../../@types/Components/Factories/Buildings/BuildingDetailsProps";
+import {BuildingDetailsProps} from "../../../../@types/Components/Factories/Buildings/BuildingDetailsProps";
+import {SelectRecipeModal} from "./SelectRecipeModal";
 
 /**
  * Components showing building extra details like recipe select or
  * source purity based on its type.
  */
-export class BuildingDetails extends Component<BuildingDetailsProps> {
+export class BuildingOptions extends Component<BuildingDetailsProps> {
+	constructor(props: BuildingDetailsProps) {
+		super(props);
+
+		this.handleSetRecipe = this.handleSetRecipe.bind(this);
+	}
+
+	handleSetRecipe(recipe: string): void {
+		let building = this.props.building;
+		if (building.getBuildingType() === "coalGenerator") {
+			building.specials = recipe;
+		} else {
+			building.recipe = recipe;
+		}
+
+		this.props.onBuildingChange(building);
+	}
+
 	private getRecipeSelect(label: string = "Recipe", placeholder: string = "Select recipe"): JSX.Element {
-		return <RecipeSelect key="recipe"
-		                     building={this.props.building}
-		                     onBuildingChange={this.props.onBuildingChange}
-		                     label={label}
-		                     placeholder={placeholder}/>;
+		return (
+			<SelectRecipeModal
+				key="recipe"
+				backdrop={false}
+				onRecipeSelect={this.handleSetRecipe}
+				defaultRecipe={this.props.building.getRecipe()}
+				placeholder={placeholder}
+				building={this.props.building}>
+				{label}
+			</SelectRecipeModal>
+		);
 	}
 
 	private getSourcePurity(): JSX.Element {
@@ -31,6 +54,7 @@ export class BuildingDetails extends Component<BuildingDetailsProps> {
 				components.push(this.getSourcePurity());
 				break;
 			case "coalGenerator":
+			case "fuelGenerator":
 				components.push(this.getRecipeSelect("Fuel", "Select Fuel"));
 				break;
 			case "waterExtractor":
@@ -48,15 +72,7 @@ export class BuildingDetails extends Component<BuildingDetailsProps> {
 		return components;
 	}
 
-	render(): JSX.Element {
-		return (
-			<table className="table table-borderless">
-				<tbody>
-				<tr>
-					{this.getComponents()}
-				</tr>
-				</tbody>
-			</table>
-		);
+	render(): JSX.Element[] {
+		return this.getComponents();
 	}
 }

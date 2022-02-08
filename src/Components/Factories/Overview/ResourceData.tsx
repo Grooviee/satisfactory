@@ -1,7 +1,6 @@
 import {Component} from "react";
 import {DataList} from "../../../Data/DataList";
 import {numberFormat} from "../../../Helpers/NumberFormat";
-import {FactoryManager} from "../../../Structures/Factories";
 import {ResourceDataProps} from "../../../@types/Components/Factories/Overview/ResourceDataProps";
 
 /**
@@ -29,12 +28,12 @@ export class ResourceData extends Component<ResourceDataProps> {
 	render(): JSX.Element {
 		let list: JSX.Element[] = [];
 
-		let factory = FactoryManager.getFactory(this.props.factoryId);
-		if(factory == null) return <></>;
+		let factory = this.props.factory;
+		if (factory == null) return <></>;
 
-		let resources = factory.getResources();
+		let resources = factory.getTotalResources();
 		resources.forEach((resource) => {
-			if(!this.props.renderCallback(resource.value)) return;
+			if (!this.props.renderCallback(resource.value)) return;
 
 			let className = resource.value < 0
 				? "text-danger"
@@ -50,8 +49,17 @@ export class ResourceData extends Component<ResourceDataProps> {
 			);
 		});
 
+		if (list.length === 0) {
+			return <></>;
+		}
+
 		return (
-			<table className="table m-0 table-borderless">
+			<table className="table m-0 table-bordered">
+				<thead>
+				<tr>
+					<th>{this.props.children}</th>
+				</tr>
+				</thead>
 				<tbody>
 				{list}
 				</tbody>

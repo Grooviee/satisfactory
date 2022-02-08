@@ -1,5 +1,5 @@
 import {FactoryData} from "../../../Structures/FactoryData";
 
-export type FactoryOverviewProps = {
+export type BuildingListProps = {
 	factory: FactoryData;
 }

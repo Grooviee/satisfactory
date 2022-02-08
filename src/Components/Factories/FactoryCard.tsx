@@ -1,143 +1,128 @@
-import {FactoryManager} from "../../Structures/Factories";
-import {BuildingCard} from "./BuildingCard";
-import {Component} from "react";
-import {FactoryData} from "../../Structures/FactoryData";
-import {FactoryOverview} from "./FactoryOverview";
-import {BuildingData} from "../../Structures/BuildingData";
-import {AddTransportationModal} from "../Transportation/AddTransportationModal";
-import {AddBuildingModal} from "./Buildings/AddBuildingModal";
+import {ChangeEvent, Component} from "react";
+import {FactoryCardProps} from "../../@types/Components/Factories/FactoryCardProps";
 import {FactoryCardState} from "../../@types/Components/Factories/FactoryCardState";
+import {FactoryBuildings} from "./Overview/FactoryBuildings";
+import {FactoryManager} from "../../Structures/Factories";
+import {EnergyOverview} from "./Overview/EnergyOverview";
+import {AddTransportationModal} from "../Transportation/AddTransportationModal";
+import {ResourceData} from "./Overview/ResourceData";
+import {FactoryData} from "../../Structures/FactoryData";
+import {SettingsManager} from "../../Structures/Settings";
+import {TransportOverview} from "../Transportation/TransportOverview";
 
 /**
- * Card with factory details.
+ * Factory details.
  */
-export class FactoryCard extends Component<any, FactoryCardState> {
-	data: FactoryData;
-	onDelete: any;
-	onAddBuilding: any;
-
-	constructor(props: any) {
+export class FactoryCard extends Component<FactoryCardProps, FactoryCardState> {
+	constructor(props: FactoryCardProps) {
 		super(props);
 
-		this.data = props.data;
-		this.onDelete = props.onDelete;
-		this.onAddBuilding = props.onAddBuilding;
-
 		this.state = {
-			data: this.data,
-			opened: false
+			opened: false,
+			factory: props.factory
 		};
 
-		this.handleChangeFactoryName = this.handleChangeFactoryName.bind(this);
-		this.handleAddBuilding = this.handleAddBuilding.bind(this);
-		this.handleToggle = this.handleToggle.bind(this);
-		this.handleSort = this.handleSort.bind(this);
-		this.handleUpdateTransport = this.handleUpdateTransport.bind(this);
+		this.handleFactoryName = this.handleFactoryName.bind(this);
+		this.handleFactoryDelete = this.handleFactoryDelete.bind(this);
+		this.handleEditFactory = this.handleEditFactory.bind(this);
+		this.handleRefresh = this.handleRefresh.bind(this);
 	}
 
-	/**
-	 * Change of factory name.
-	 * @param event
-	 */
-	handleChangeFactoryName(event: any): void {
-		this.data.name = event.target.value;
-		FactoryManager.update(this.data);
-		this.setState({data: this.data});
+	handleFactoryName(event: ChangeEvent<HTMLInputElement>): void {
+		let factory = this.state.factory;
+		factory.name = event.target.value;
+		FactoryManager.update(factory);
+		this.setState({factory: factory});
 	}
 
-	/**
-	 * Toggle factory details.
-	 */
-	handleToggle(): void {
-		this.setState((state: FactoryCardState) => ({
-			opened: !state.opened
-		}));
+	handleFactoryDelete(): void {
+		this.props.onRemoveBuilding(this.state.factory.id);
 	}
 
-	/**
-	 * Handle adding of new building to factory.
-	 */
-	handleAddBuilding(): void {
-		this.setState(_ => ({
-			opened: true
-		}));
+	handleEditFactory(): void {
+		this.props.onSelectFactory(this.state.factory);
 	}
 
-	handleSort(): void {
+	handleRefresh(): void {
 		this.forceUpdate();
 	}
 
-	handleUpdateTransport(): void {
-		this.setState(_ => ({
-			opened: false
-		}));
+	editButton(): JSX.Element {
+		return (
+			<button className="btn btn-sm btn-primary me-3" onClick={this.handleEditFactory}>
+				<i className="fa fa-edit"/> Edit factory
+			</button>
+		);
 	}
 
-	/**
-	 * Handle removing of selected building.
-	 * @param id of building to remove.
-	 */
-	handleRemoveBuilding(id: number): void {
-		this.data.removeBuilding(id);
-		FactoryManager.update(this.data);
-		this.setState({data: this.data});
-	}
-
-	cardBody(): JSX.Element {
-		let buildings = this.data.buildings.sort(BuildingData.BuildingSorter);
-
-		let buildingList = buildings.map((building) => {
-			return <BuildingCard key={building.id}
-			                     factory={this.data}
-			                     building={building}
-			                     onRemoveBuilding={(_: any) => this.handleRemoveBuilding(building.id)}/>
-		});
+	private cardBody(): JSX.Element {
+		let hidden = SettingsManager.getData().hideDetails;
+		if (hidden) return <></>;
 
 		return (
-			<>
-				<div className="card-body">
-					<div className="row row-cols-3">
-						{buildingList}
+			<div className="card-body">
+				<div className="row row-cols-2 mb-4">
+					<div className="col">
+						<FactoryBuildings factory={this.state.factory}/>
+					</div>
+					<div className="col">
+						<EnergyOverview factory={this.state.factory}/>
 					</div>
 				</div>
-				<div className="card-footer border-dark d-flex justify-content-end bg-transparent">
-					<button className="btn btn-sm btn-outline-primary mx-2" onClick={this.handleSort}>
-						<i className="fa fa-sort-amount-down-alt pe-2"/> Sort buildings
-					</button>
-					<AddBuildingModal factory={this.data} onUpdate={this.handleAddBuilding} />
+				<div className="row row-cols-2">
+					<div className="col">
+						<ResourceData factory={this.state.factory} renderCallback={FactoryData.productionFilter}>
+							Final production
+						</ResourceData>
+					</div>
+					<div className="col">
+						<ResourceData factory={this.state.factory} renderCallback={FactoryData.insufficientFilter}>
+							Insufficient resources
+						</ResourceData>
+					</div>
 				</div>
-			</>
+			</div>
 		);
+	}
+
+	private cardFooter(): JSX.Element {
+		let hidden = SettingsManager.getData().hideDetails;
+		if (hidden) return <></>;
+
+		return (
+			<div className="card-footer bg-transparent border-top-0">
+				<div className="row">
+					<div className="col-12">
+						<TransportOverview factory={this.state.factory}>
+							Transportation
+						</TransportOverview>
+					</div>
+				</div>
+			</div>
+		)
 	}
 
 	render(): JSX.Element {
 		return (
-			<>
-				<div className="card border-dark my-3">
-					<div className="card-header border-dark bg-dark d-flex justify-content-between">
-						<div>
-							<button className="btn btn-sm me-3" onClick={this.handleToggle}>
-								{this.state.opened
-									? (<i className="fa fa-chevron-up"/>)
-									: (<i className="fa fa-chevron-down"/>)}
-							</button>
-						</div>
+			<div className="col mb-4">
+				<div className="card h-100" id={this.state.factory.id.toString()}>
+					<div className="card-header d-flex justify-content-between bg-dark">
 						<div className="flex-fill">
-							<input type="text" className="form-control form-control-sm" value={this.data.name}
-							       onChange={this.handleChangeFactoryName}/>
+							<input type="text" className="form-control form-control-sm"
+							       value={this.state.factory.name} onChange={this.handleFactoryName}/>
 						</div>
-						<div className="ps-5">
-							<AddBuildingModal factory={this.data} onUpdate={this.handleAddBuilding} />
-							<AddTransportationModal onUpdate={this.handleUpdateTransport} fromFactory={this.data.id}/>
-							<button className="btn btn-sm btn-outline-danger" onClick={this.onDelete}>
+						<div className="ps-3">
+							{this.editButton()}
+							<AddTransportationModal onUpdate={this.handleRefresh} fromFactory={this.state.factory.id}/>
+							<button className="btn btn-sm btn-outline-danger" onClick={this.handleFactoryDelete}>
 								<i className="fa fa-times"/>
 							</button>
 						</div>
 					</div>
-					<FactoryOverview factory={this.data}/>
-					{this.state.opened ? this.cardBody() : (<></>)}
+					{this.cardBody()}
+					{this.cardFooter()}
 				</div>
-			</>
-		)
+			</div>
+		);
 	}
 }
