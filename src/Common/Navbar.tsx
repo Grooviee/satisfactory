@@ -1,6 +1,6 @@
-import {Component} from "react";
-import {Link, withRouter} from "react-router-dom";
-import {RouteComponentProps} from "react-router";
+import { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
+import { RouteComponentProps } from "react-router";
 
 class Navbar extends Component<RouteComponentProps, any> {
 	render(): JSX.Element {
@@ -10,19 +10,31 @@ class Navbar extends Component<RouteComponentProps, any> {
 		return (
 			<nav className="navbar navbar-expand-lg navbar-dark bg-primary">
 				<div className="container-fluid">
-					<a href="." className="navbar-brand">Satis-Factory Manager</a>
-					<button className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
-						<span className="navbar-toggler-icon"/>
+					<a href="." className="navbar-brand">
+						Satis-Factory Manager
+					</a>
+					<button
+						className="navbar-toggler"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarMenu"
+					>
+						<span className="navbar-toggler-icon" />
 					</button>
 					<div className="collapse navbar-collapse" id="navbarMenu">
 						<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 							<li className="nav-item">
-								<Link className={`nav-link ${homeActive ? "active" : ""}`} to=".">
+								<Link
+									className={`nav-link ${homeActive ? "active" : ""}`}
+									to="."
+								>
 									Home
 								</Link>
 							</li>
 							<li className="nav-item">
-								<Link className={`nav-link ${managerActive ? "active" : ""}`} to="manager">
+								<Link
+									className={`nav-link ${managerActive ? "active" : ""}`}
+									to="manager"
+								>
 									Factory Manager
 								</Link>
 							</li>
@@ -30,28 +42,32 @@ class Navbar extends Component<RouteComponentProps, any> {
 
 						<ul className="navbar-nav ms-auto mb-2 mb-lg-0">
 							<li className="nav-item">
-								<a href="https://github.com/JZechy/satisfactory-manager" target="_blank" className="nav-link" rel="noreferrer">
-									<i className="fab fa-github me-2"/>
+								<a
+									href="https://github.com/Grooviee/satisfactory"
+									target="_blank"
+									className="nav-link"
+									rel="noreferrer"
+								>
+									<i className="fab fa-github me-2" />
 									GitHub
 								</a>
 							</li>
 							<li className="nav-item">
-								<a href="https://github.com/JZechy/satisfactory-manager/issues/new?assignees=&labels=&template=bug_report.md&title=" className="nav-link" target="_blank" rel="noreferrer">
-									<i className="fas fa-bug me-2"/>
+								<a
+									href="https://github.com/Grooviee/satisfactory/issues/new?assignees=&labels=&template=bug_report.md&title="
+									className="nav-link"
+									target="_blank"
+									rel="noreferrer"
+								>
+									<i className="fas fa-bug me-2" />
 									Report a bug
-								</a>
-							</li>
-							<li className="nav-item">
-								<a href="https://www.paypal.com/donate?hosted_button_id=N7MWMNZ2VZJRN" className="btn btn-outline-warning" target="_blank" rel="noreferrer">
-									<i className="fab fa-paypal me-2"/>
-									<strong className="fs-6">Donate</strong>
 								</a>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</nav>
-		)
+		);
 	}
 }
 
