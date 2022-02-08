@@ -1,10 +1,17 @@
-import {Component} from "react";
+import { Component } from "react";
 
 export class Footer extends Component<any, any> {
 	render(): JSX.Element {
 		return (
 			<footer className="container-fluid my-5 pt-5 border-top text-center fs-6">
-				Created by <a href="https://twitter.com/JZechy" target="_blank" rel="noreferrer">Zechy</a>
+				Created by{" "}
+				<a href="https://twitter.com/JZechy" target="_blank" rel="noreferrer">
+					Zechy
+				</a>
+				, hosted by{" "}
+				<a href="https://twitter.com/grooviee" target="_blank" rel="noreferrer">
+					Grooviee
+				</a>
 			</footer>
 		);
 	}

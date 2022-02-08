@@ -43,7 +43,7 @@ class Navbar extends Component<RouteComponentProps, any> {
 						<ul className="navbar-nav ms-auto mb-2 mb-lg-0">
 							<li className="nav-item">
 								<a
-									href="https://github.com/JZechy/satisfactory-manager"
+									href="https://github.com/Grooviee/satisfactory"
 									target="_blank"
 									className="nav-link"
 									rel="noreferrer"
@@ -54,7 +54,7 @@ class Navbar extends Component<RouteComponentProps, any> {
 							</li>
 							<li className="nav-item">
 								<a
-									href="https://github.com/JZechy/satisfactory-manager/issues/new?assignees=&labels=&template=bug_report.md&title="
+									href="https://github.com/Grooviee/satisfactory/issues/new?assignees=&labels=&template=bug_report.md&title="
 									className="nav-link"
 									target="_blank"
 									rel="noreferrer"
