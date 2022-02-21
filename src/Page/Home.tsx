@@ -30,18 +30,6 @@ export class Home extends Component<any, any> {
 				<div className="container p-5 pt-3">
 					<div className="row">
 						<div className="col-12">
-							<p className="alert alert-primary">
-								<i className="fa fa-tools pe-2" />
-								<strong>
-									Help us test the brand new version of{" "}
-									<a
-										href="https://satisfactory-newui.jplekkerkerker.nl/#/"
-										className="btn btn-outline-light btn-sm"
-									>
-										Satis-Factory Manager here!
-									</a>
-								</strong>
-							</p>
 							<h2 className="mt-4 mb-3">Production management</h2>
 						</div>
 					</div>

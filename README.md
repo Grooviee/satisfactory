@@ -3,7 +3,7 @@
 Satisfactory management online tool for production and power management, and advanced factory planning written in
 React & TypeScript.
 
-[Satis-Factory Manager](https://satisfactory.jplekkerkerker.nl/#/)
+[Satis-Factory Manager](http://satisfactory.jplekkerkerker.nl:4321/#/)
 
 ## Features
 
